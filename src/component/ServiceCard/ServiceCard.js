@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ service }) => {
   const cardStyle = {
@@ -66,9 +65,14 @@ const ServiceCard = ({ service }) => {
       <span style={priceStyle}>{`₹${service.price}`}</span>
 
       <div>
-        <Link to={`/book-appointment?service=${service._id}`} style={buttonStyle}>
+        <a 
+          href="https://calendly.com/ps985094/30min" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={buttonStyle}
+        >
           Book Service
-        </Link>
+        </a>
       </div>
     </div>
   );
