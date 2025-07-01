@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://back-mu-lake.vercel.app',
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://back-yv0t.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
