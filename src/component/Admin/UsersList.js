@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid } from "@material-ui/data-grid"; // You can upgrade to @mui/x-data-grid if needed
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ import { DELETE_USER_RESET } from "../../constants/userConstants";
 
 const UsersList = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // ✅ React Router v6 hook
+  const navigate = useNavigate();
   const alert = useAlert();
 
   const { error, users } = useSelector((state) => state.allUsers);
@@ -41,7 +41,7 @@ const UsersList = () => {
 
     if (isDeleted) {
       alert.success(message);
-      navigate("/admin/users"); // ✅ replaced history.push
+      navigate("/admin/users");
       dispatch({ type: DELETE_USER_RESET });
     }
 
@@ -68,11 +68,8 @@ const UsersList = () => {
       type: "string",
       minWidth: 150,
       flex: 0.3,
-      cellClassName: (params) => {
-        return params.getValue(params.id, "role") === "admin"
-          ? "greenColor"
-          : "redColor";
-      },
+      cellClassName: (params) =>
+        params.row.role === "admin" ? "greenColor" : "redColor",
     },
     {
       field: "actions",
@@ -84,12 +81,10 @@ const UsersList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/user/${params.row.id}`}>
               <EditIcon />
             </Link>
-            <Button
-              onClick={() => deleteUserHandler(params.getValue(params.id, "id"))}
-            >
+            <Button onClick={() => deleteUserHandler(params.row.id)}>
               <DeleteIcon />
             </Button>
           </Fragment>
@@ -112,7 +107,7 @@ const UsersList = () => {
 
   return (
     <Fragment>
-      <MetaData title={`ALL USERS - Admin`} />
+      <MetaData title="ALL USERS - Admin" />
       <div className="dashboard">
         <SideBar />
         <div className="productListContainer">
