@@ -7,6 +7,7 @@ import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader/Loader";
 import WhyChooseUs from "../WhyChooseUs/WhyChooseUs";
 import Testimonials from "../Testimonials/Testimonials";
+import VisionMission from "../VisionMission/VisionMission";
 import "./Services.css";
 
 const Services = () => {
@@ -24,41 +25,48 @@ const Services = () => {
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <MetaData title="Services - Astro World" />
-          
-          <div className="services-banner">
-            <h1>Our Services</h1>
-            <p>Discover our comprehensive range of astrological services</p>
-          </div>
+      <MetaData title="Services - Astro World" />
 
-          <section className="services-intro">
-            <h2>Our Services</h2>
-            <div className="services-description">
-              <p>
-                Experience the power of ancient wisdom combined with modern expertise. Our comprehensive range of astrological services is designed to guide you through life's journey with clarity and purpose. From personalized horoscope readings to relationship compatibility analysis, our expert astrologers provide insights that help you make informed decisions and achieve harmony in all aspects of life.
-              </p>
-            </div>
-          </section>
+      {/* Banner - Always visible */}
+      <div className="services-banner"></div>
 
-          <section className="services-showcase">
-            <div className="services-container">
-              {services &&
-                services.map((service) => (
-                  <ServiceCard key={service._id} service={service} />
-                ))}
-            </div>
-          </section>
+      {/* Intro section - Always visible */}
+      <section className="services-intro">
+        <h2>Our Services</h2>
+        <div className="services-description">
+          <p>
+            Experience the power of ancient wisdom combined with modern
+            expertise. Our comprehensive range of astrological services is
+            designed to guide you through life's journey with clarity and
+            purpose. From personalized horoscope readings to relationship
+            compatibility analysis, our expert astrologers provide insights that
+            help you make informed decisions and achieve harmony in all aspects
+            of life.
+          </p>
+        </div>
+      </section>
 
-          <WhyChooseUs />
-          <Testimonials />
-        </>
-      )}
+      {/* Services list - Shows loader only for this section */}
+      <section className="services-showcase">
+        <div className="services-container">
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <p className="error-message">Failed to load services.</p>
+          ) : (
+            services?.map((service) => (
+              <ServiceCard key={service._id} service={service} />
+            ))
+          )}
+        </div>
+      </section>
+
+      {/* Static sections */}
+      <WhyChooseUs />
+      <VisionMission />
+      <Testimonials />
     </>
   );
 };
 
-export default Services; 
+export default Services;
