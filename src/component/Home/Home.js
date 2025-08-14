@@ -34,61 +34,76 @@ const Home = () => {
     dispatch(getServices());
   }, [dispatch, productsError, servicesError, alert]);
 
+
+
   return (
-    <Fragment>
-      {(productsLoading || servicesLoading) ? (
-        <Loader />
-      ) : (
-        <Fragment>
-          <MetaData title="Absolute astro service " />
+  <Fragment>
+    <MetaData title="Absolute astro service " />
 
-          <div className="banner">
+    {/* Banner & About Section - Always visible */}
+    <div className="banner"></div>
+    <AboutSection />
 
-           
-          </div>
+    {/* SERVICES SECTION */}
+    <section className="services-preview-modern">
+      <h2 className="section-heading">
+        Our Key Services
+        <span className="heading-underline"></span>
+      </h2>
 
-          <AboutSection />
+      <div className="services-description-modern">
+        <p>
+          We offer a range of services that are rooted in deep traditional wisdom combined with modern insights. Whether it's Mobile Numerology, Vedic Astrology, Name Correction, or Business Consultation – each service is crafted to give you the maximum transformation in your personal and professional life.
+        </p>
+      </div>
 
-          {/* SERVICES SECTION */}
-          <section className="services-preview-modern">
-            <h2 className="section-heading">
-              Our Key Services
-              <span className="heading-underline"></span>
-            </h2>
-
-            <div className="services-description-modern">
-              <p>
-                We offer a range of services that are rooted in deep traditional wisdom combined with modern insights. Whether it's Mobile Numerology, Vedic Astrology, Name Correction, or Business Consultation – each service is crafted to give you the maximum transformation in your personal and professional life.
-              </p>
-            </div>
-
-            <div className="container">
-              {services && services.slice(0, 6).map((service) => (
-                <ServiceCard key={service._id} service={service} />
-              ))}
-            </div>
-         <br/>
-            <Link to="/services" className="view-more-button">View All Services</Link>
-          </section>
-
-          {/* PRODUCTS SECTION */}
-          <section className="products-preview">
-            <h2>Featured Products</h2>
-            <div className="container" id="container">
-              {products && products.slice(0, 6).map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-            </div>   <br/>
-            <Link to="/products" className="view-more-button">View All Products</Link>
-          </section>
-
-          <WhyChooseUs />
-          <VisionMission />
-          <Testimonials />
-        </Fragment>
+      <div className="container">
+        {servicesLoading ? (
+          <Loader />
+        ) : (
+          services && services.slice(0, 6).map((service) => (
+            <ServiceCard key={service._id} service={service} />
+          ))
+        )}
+      </div>
+      <br />
+      {!servicesLoading && (
+        <Link to="/services" className="view-more-button">View All Services</Link>
       )}
-    </Fragment>
-  );
+    </section>
+
+    {/* PRODUCTS SECTION */}
+    <section className="products-preview">
+      <h2>Featured Products</h2>
+      <div className="container" id="container">
+        {productsLoading ? (
+          <Loader />
+        ) : (
+          products && products.slice(0, 6).map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        )}
+      </div>
+      <br />
+      {!productsLoading && (
+        <Link to="/products" className="view-more-button">View All Products</Link>
+      )}
+    </section>
+
+    <WhyChooseUs />
+    <VisionMission />
+    <Testimonials />
+  </Fragment>
+);
+
+        
+
+
+
+
+
+
+
 };
 
 export default Home;
